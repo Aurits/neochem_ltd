@@ -19,6 +19,63 @@
     <link rel="stylesheet" href="assets/vendor/animate/animate.css" />
 
     <link rel="stylesheet" href="assets/css/theme.css" />
+
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
+
+    <style>
+        /* Custom styles for the modal */
+        .modal-header {
+            border-bottom: none;
+            position: relative;
+        }
+
+        .modal-header .close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #000;
+            opacity: 0.8;
+        }
+
+        .modal-body {
+            text-align: center;
+        }
+
+        .modal-body img {
+            max-width: 100%;
+            height: auto;
+            max-height: 60vh;
+            margin-bottom: 15px;
+        }
+
+        .modal-body .product-details {
+            margin-top: 15px;
+        }
+
+        .modal-body .product-details h3 {
+            margin-bottom: 10px;
+        }
+
+        .modal-body .product-details p {
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .modal-body .product-details .description {
+            font-weight: normal;
+            color: #666;
+        }
+    </style>
+
 </head>
 
 <body>

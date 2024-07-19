@@ -1,187 +1,80 @@
 <!-- include header php -->
 <?php include 'header.php'; ?>
 
-<div class="container">
-  <div class="page-banner">
-    <div class="row justify-content-center align-items-center h-100">
-      <div class="col-md-6">
-        <nav aria-label="Breadcrumb">
-          <ul class="breadcrumb justify-content-center py-0 bg-transparent">
-            <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-            <li class="breadcrumb-item active">Services</li>
-          </ul>
-        </nav>
-        <h1 class="text-center">Our Services</h1>
+<main id="main">
+
+  <!-- Modal -->
+  <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="productModalLabel">Product Details</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <img id="modal-product-image" src="" class="img-fluid" alt="Product Image">
+          <div class="product-details">
+            <h3 id="modal-product-name"></h3>
+            <p id="modal-product-price"></p>
+            <p id="modal-product-type"></p>
+            <div id="modal-product-description" class="description"></div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
-</div>
-</header>
 
-<div class="page-section">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-4">
-        <div class="card-service">
-          <div class="header">
-            <img src="assets/img/services/service-1.svg" alt="" />
-          </div>
-          <div class="body">
-            <h5 class="text-secondary">SEO Consultancy</h5>
-            <p>
-              We help you define your SEO objective & develop a realistic
-              strategy with you
-            </p>
-            <a href="service.php" class="btn btn-primary">Read More</a>
+
+  <!-- ======= Works Section ======= -->
+  <section class="section site-portfolio">
+    <div class="container">
+      <div class="row mb-5 align-items-center">
+        <div class="col-md-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
+          <h2>Product Catolog</h2>
+          <p class="mb-0">UNIQUE BY NATURE</p>
+        </div>
+        <div class="col-md-12 col-lg-6 text-start text-lg-end" data-aos="fade-up" data-aos-delay="100">
+          <div id="filters" class="filters">
+            <a href="#" data-filter="*" class="active">All</a>
+            <a href="#" data-filter=".house">House Keeping Products</a>
+            <a href="#" data-filter=".laundary">Laundary Products</a>
+            <a href="#" data-filter=".floorcare">FloorCare Products</a>
+
           </div>
         </div>
       </div>
-      <div class="col-lg-4">
-        <div class="card-service">
-          <div class="header">
-            <img src="assets/img/services/service-2.svg" alt="" />
+      <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
+
+        <?php
+        include 'config.php';
+        $stmt = $conn->prepare('SELECT * FROM product');
+        $stmt->execute();
+        $result = $stmt->get_result();
+        while ($row = $result->fetch_assoc()) :
+          $product_type = $row['product_type']; // Get product type
+        ?>
+          <div class="item <?= strtolower($product_type) ?> col-sm-6 col-md-4 col-lg-4 mb-4">
+            <a class="item-wrap fancybox" href="#" onclick="showProductDetails('<?= $row['product_name'] ?>', '<?= $row['product_price'] ?>', '<?= $row['product_image'] ?>', '<?= $row['id'] ?>', '<?= $row['product_description'] ?>', '<?= $row['product_type'] ?>')">
+              <div class="work-info">
+                <h3><?= $row['product_name'] ?></h3>
+                <span><?= $product_type ?></span>
+              </div>
+              <img class="img-fluid" src="site_images/<?= $row['product_image'] ?>">
+            </a>
           </div>
-          <div class="body">
-            <h5 class="text-secondary">Content Marketing</h5>
-            <p>
-              We help you define your SEO objective & develop a realistic
-              strategy with you
-            </p>
-            <a href="service.php" class="btn btn-primary">Read More</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="card-service">
-          <div class="header">
-            <img src="assets/img/services/service-3.svg" alt="" />
-          </div>
-          <div class="body">
-            <h5 class="text-secondary">Keyword Research</h5>
-            <p>
-              We help you define your SEO objective & develop a realistic
-              strategy with you
-            </p>
-            <a href="service.php" class="btn btn-primary">Read More</a>
-          </div>
-        </div>
+        <?php endwhile; ?>
+
+
       </div>
     </div>
-  </div>
-  <!-- .container -->
-</div>
-<!-- .page-section -->
+  </section><!-- End  Works Section -->
 
-<div class="page-section bg-light">
-  <div class="container">
-    <div class="text-center">
-      <div class="subhead">Our services</div>
-      <h2 class="title-section">How SEO Team Can Help</h2>
-      <div class="divider mx-auto"></div>
 
-      <div class="row">
-        <div class="col-sm-6 col-lg-4 col-xl-3 py-3">
-          <div class="features">
-            <div class="header mb-3">
-              <span class="mai-business"></span>
-            </div>
-            <h5>OnSite SEO</h5>
-            <p>
-              We analyse your website's structure, internal architecture &
-              other key
-            </p>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-4 col-xl-3 py-3">
-          <div class="features">
-            <div class="header mb-3">
-              <span class="mai-business"></span>
-            </div>
-            <h5>OnSite SEO</h5>
-            <p>
-              We analyse your website's structure, internal architecture &
-              other key
-            </p>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-4 col-xl-3 py-3">
-          <div class="features">
-            <div class="header mb-3">
-              <span class="mai-business"></span>
-            </div>
-            <h5>OnSite SEO</h5>
-            <p>
-              We analyse your website's structure, internal architecture &
-              other key
-            </p>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-4 col-xl-3 py-3">
-          <div class="features">
-            <div class="header mb-3">
-              <span class="mai-business"></span>
-            </div>
-            <h5>OnSite SEO</h5>
-            <p>
-              We analyse your website's structure, internal architecture &
-              other key
-            </p>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-4 col-xl-3 py-3">
-          <div class="features">
-            <div class="header mb-3">
-              <span class="mai-business"></span>
-            </div>
-            <h5>OnSite SEO</h5>
-            <p>
-              We analyse your website's structure, internal architecture &
-              other key
-            </p>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-4 col-xl-3 py-3">
-          <div class="features">
-            <div class="header mb-3">
-              <span class="mai-business"></span>
-            </div>
-            <h5>OnSite SEO</h5>
-            <p>
-              We analyse your website's structure, internal architecture &
-              other key
-            </p>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-4 col-xl-3 py-3">
-          <div class="features">
-            <div class="header mb-3">
-              <span class="mai-business"></span>
-            </div>
-            <h5>OnSite SEO</h5>
-            <p>
-              We analyse your website's structure, internal architecture &
-              other key
-            </p>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-4 col-xl-3 py-3">
-          <div class="features">
-            <div class="header mb-3">
-              <span class="mai-business"></span>
-            </div>
-            <h5>OnSite SEO</h5>
-            <p>
-              We analyse your website's structure, internal architecture &
-              other key
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- .container -->
-</div>
-<!-- .page-section -->
+</main><!-- End #main -->
+
 
 <!-- include footer php -->
 <?php include 'footer.php'; ?>

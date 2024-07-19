@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Handle image upload
     if (!empty($_FILES['blog_image']['name'])) {
-        $target_dir = "../site_images/";
+        $target_dir = "site_images/";
         $blog_image = $target_dir . basename($_FILES["blog_image"]["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($blog_image, PATHINFO_EXTENSION));

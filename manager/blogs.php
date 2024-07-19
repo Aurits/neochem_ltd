@@ -58,7 +58,7 @@ include 'header.php';
                                         echo "<td>" . $row["id"] . "</td>";
                                         echo "<td>" . $row["title"] . "</td>";
                                         echo "<td>" . $row["category_name"] . "</td>";
-                                        echo "<td><img src='" . $row["blog_image"] . "' alt='Blog Image' style='width: 50px; height: auto;'></td>";
+                                        echo "<td><img src='" . '../' . $row["blog_image"] . "' alt='Blog Image' style='width: 50px; height: auto;'></td>";
                                         echo "<td>" . substr($row["content"], 0, 50) . "...</td>";
                                         echo "<td>";
 

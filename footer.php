@@ -37,6 +37,24 @@
     </div>
 </footer>
 
+<script>
+    function showProductDetails(name, price, image, id, description, type) {
+        // Populate modal with product details
+        document.getElementById('modal-product-name').innerHTML = `<h3>${name}</h3>`;
+        document.getElementById('modal-product-price').innerHTML = `<p>Price: ${price}</p>`;
+        document.getElementById('modal-product-image').src = "site_images/" + image;
+        document.getElementById('modal-product-description').innerHTML = `<p>${description}</p>`;
+
+        // Show the modal
+        var myModal = new bootstrap.Modal(document.getElementById('productModal'), {});
+        myModal.show();
+    }
+</script>
+
+
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
+
 <!-- Vendor JS Files -->
 <script src="assets/vendor/aos/aos.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
