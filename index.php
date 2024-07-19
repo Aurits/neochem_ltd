@@ -154,65 +154,53 @@
       <div class="divider mx-auto"></div>
     </div>
 
-    <div class="row mt-5">
-      <div class="col-lg-4 py-3 wow fadeInUp">
-        <div class="card-blog">
-          <div class="header">
-            <div class="post-thumb">
-              <img src="assets/img/blog/blog-1.jpg" alt="" />
-            </div>
-          </div>
-          <div class="body">
-            <h5 class="post-title">
-              <a href="#">Source of Content Inspiration</a>
-            </h5>
-            <div class="post-date">
-              Posted on <a href="#">27 Jan 2020</a>
-            </div>
-          </div>
-        </div>
-      </div>
+    <?php
+    // Include the database configuration file
+    include('config.php');
 
-      <div class="col-lg-4 py-3 wow fadeInUp">
-        <div class="card-blog">
-          <div class="header">
-            <div class="post-thumb">
-              <img src="assets/img/blog/blog-2.jpg" alt="" />
-            </div>
-          </div>
-          <div class="body">
-            <h5 class="post-title">
-              <a href="#">Source of Content Inspiration</a>
-            </h5>
-            <div class="post-date">
-              Posted on <a href="#">27 Jan 2020</a>
-            </div>
-          </div>
-        </div>
-      </div>
+    // Fetch blog data from the database
+    $query = "SELECT blogs.id, blogs.title, blogs.blog_image, blogs.created_at FROM blogs";
+    $result = mysqli_query($conn, $query);
 
-      <div class="col-lg-4 py-3 wow fadeInUp">
-        <div class="card-blog">
-          <div class="header">
-            <div class="post-thumb">
-              <img src="assets/img/blog/blog-3.jpg" alt="" />
+    // Check if there are any results
+    if (mysqli_num_rows($result) > 0) {
+    ?>
+      <div class="row my-5">
+        <?php
+        // Fetch each row as an associative array
+        while ($row = mysqli_fetch_assoc($result)) {
+          // Format the date
+          $date = date('d M Y', strtotime($row['created_at']));
+        ?>
+          <div class="col-lg-4 py-3">
+            <div class="card-blog">
+              <div class="header">
+                <div class="post-thumb">
+                  <img src="<?php echo htmlspecialchars($row['blog_image']); ?>" alt="" />
+                </div>
+              </div>
+              <div class="body">
+                <h5 class="post-title">
+                  <a href="blog-details.php?id=<?php echo $row['id']; ?>"><?php echo htmlspecialchars($row['title']); ?></a>
+                </h5>
+                <div class="post-date">
+                  Posted on <a href="#"><?php echo $date; ?></a>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="body">
-            <h5 class="post-title">
-              <a href="#">Source of Content Inspiration</a>
-            </h5>
-            <div class="post-date">
-              Posted on <a href="#">27 Jan 2020</a>
-            </div>
-          </div>
-        </div>
+        <?php
+        }
+        ?>
       </div>
+    <?php
+    } else {
+      echo "No blog posts found.";
+    }
 
-      <div class="col-12 mt-4 text-center wow fadeInUp">
-        <a href="blog.php" class="btn btn-primary">Read More</a>
-      </div>
-    </div>
+    // Close the database connection
+    mysqli_close($conn);
+    ?>
   </div>
 </div>
 
