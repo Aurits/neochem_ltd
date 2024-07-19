@@ -2,9 +2,9 @@
 
 // Database configuration
 $servername = "localhost";
-$username = "u859099205_shop";
-$password = "aLdGiyC!N3";
-$database = "u859099205_shop";
+$username = "root";
+$password = "";
+$database = "neo";
 
 
 // Create connection

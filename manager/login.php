@@ -6,9 +6,9 @@ ini_set('display_errors', 1);
 
 // Database configuration
 $servername = "localhost";
-$username = "u859099205_shop";
-$password = "aLdGiyC!N3";
-$database = "u859099205_shop";
+$username = "root";
+$password = "";
+$database = "neo";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $database);
