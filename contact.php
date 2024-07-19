@@ -39,32 +39,32 @@
         <p class="mb-0"><a href="#" class="text-secondary">hello@seogram.com</a></p>
       </div>
     </div>
+    <div class="contact-form-wrap pt-5">
+      <h2 class="mb-5">Contact Us</h2>
+      <form action="submit_contact.php" method="post">
+        <div class="form-row form-group">
+          <div class="col-md-6">
+            <label for="name">Name *</label>
+            <input type="text" class="form-control" id="name" name="name" required />
+          </div>
+          <div class="col-md-6">
+            <label for="email">Email *</label>
+            <input type="email" class="form-control" id="email" name="email" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">Message *</label>
+          <textarea name="message" id="message" cols="30" rows="8" class="form-control" required></textarea>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Send Message" class="btn btn-primary" />
+        </div>
+      </form>
+    </div>
+
   </div>
 
-  <section class="formcarry-container">
-    <form action="https://formcarry.com/s/G2eLTVj5OYo" method="POST" enctype="multipart/form-data">
 
-      <div class="formcarry-block">
-        <label for="fc-generated-1-name">Full Name</label>
-        <input type="text" name="name" id="fc-generated-1-name" placeholder="Your first and last name" />
-      </div>
-
-      <div class="formcarry-block">
-        <label for="fc-generated-1-email">Your Email Address</label>
-        <input type="email" name="email" id="fc-generated-1-email" placeholder="john@doe.com" />
-      </div>
-
-      <div class="formcarry-block">
-        <label for="fc-generated-1-message">Your message</label>
-        <textarea name="message" name="message" id="fc-generated-1-message" placeholder="Enter your message..."></textarea>
-      </div>
-
-      <div class="formcarry-block">
-        <button type="submit">Send</button>
-      </div>
-
-    </form>
-  </section>
 
   <!-- include footer php -->
   <?php include 'footer.php'; ?>

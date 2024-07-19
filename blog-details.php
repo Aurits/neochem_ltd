@@ -8,18 +8,39 @@
       <ul class="breadcrumb p-0 mb-0 bg-transparent">
         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
         <li class="breadcrumb-item"><a href="blog.php">Blog</a></li>
-        <li class="breadcrumb-item active">
-          Second divided from form fish beastr
-        </li>
       </ul>
     </nav>
+
+    <?php
+    // Include the database configuration file
+    include('config.php');
+
+    // Get the blog ID from the query string
+    $blog_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+    // Fetch the blog details from the database
+    $query = "SELECT * FROM blogs WHERE id = $blog_id";
+    $result = mysqli_query($conn, $query);
+
+    // Check if the blog post exists
+    if (mysqli_num_rows($result) > 0) {
+      $blog = mysqli_fetch_assoc($result);
+      $date = date('F j, Y', strtotime($blog['created_at']));
+    } else {
+      echo "Blog post not found.";
+      exit;
+    }
+
+    // Close the database connection
+    mysqli_close($conn);
+    ?>
 
     <div class="row">
       <div class="col-lg-8">
         <div class="blog-single-wrap">
           <div class="header">
             <div class="post-thumb">
-              <img src="assets/img/blog/blog-1.jpg" alt="" />
+              <img src="<?php echo htmlspecialchars($blog['blog_image']); ?>" alt="" />
             </div>
             <div class="meta-header">
               <div class="post-author">
@@ -28,7 +49,6 @@
                 </div>
                 by <a href="#">Stephen Doe</a>
               </div>
-
               <div class="post-sharer">
                 <a href="#" class="btn social-facebook"><span class="mai-logo-facebook-f"></span></a>
                 <a href="#" class="btn social-twitter"><span class="mai-logo-twitter"></span></a>
@@ -37,13 +57,13 @@
               </div>
             </div>
           </div>
-          <h1 class="post-title">Second divided from form fish beastr</h1>
+          <h1 class="post-title"><?php echo htmlspecialchars($blog['title']); ?></h1>
           <div class="post-meta">
             <div class="post-date">
               <span class="icon">
                 <span class="mai-time-outline"></span>
               </span>
-              <a href="#">March 10, 2020</a>
+              <a href="#"><?php echo $date; ?></a>
             </div>
             <div class="post-comment-count ml-2">
               <span class="icon">
@@ -53,60 +73,31 @@
             </div>
           </div>
           <div class="post-content">
-            <p>
-              MCSE boot camps have its supporters and its detractors. Some
-              people do not understand why you should have to spend money on
-              boot camp when you can get the MCSE study materials yourself
-              at a fraction of the camp price. However, who has the
-              willpower.
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-              saepe aliquid perferendis neque eos commodi nulla, veniam ex
-              mollitia, quod dignissimos id exercitationem corporis. At
-              optio laudantium suscipit in nam!
-            </p>
-            <blockquote class="quote">
-              “I'm selfish, impatient and a little insecure. I make
-              mistakes, I am out of control and at times hard to handle. But
-              if you can't handle me at my worst, then you sure as hell
-              don't deserve me at my best.”
-              <span class="author">― Marilyn Monroe</span>
-            </blockquote>
-            <p>
-              Praesent vel mi bibendum, finibus leo ac, condimentum arcu.
-              Pellentesque sem ex, tristique sit amet suscipit in, mattis
-              imperdiet enim. Integer tempus justo nec velit fringilla, eget
-              eleifend neque blandit. Sed tempor magna sed congue auctor.
-              Mauris eu turpis eget tortor ultricies elementum. Phasellus
-              vel placerat orci, a venenatis justo. Phasellus faucibus
-              venenatis nisl vitae vestibulum. Praesent id nibh arcu.
-              Vivamus sagittis accumsan felis, quis vulputate
-            </p>
+            <?php echo nl2br(htmlspecialchars($blog['content'])); ?>
           </div>
         </div>
 
         <div class="comment-form-wrap pt-5">
           <h2 class="mb-5">Leave a comment</h2>
-          <form action="#" class="">
+          <form action="submit_comment.php" method="post">
             <div class="form-row form-group">
               <div class="col-md-6">
                 <label for="name">Name *</label>
-                <input type="text" class="form-control" id="name" />
+                <input type="text" class="form-control" id="name" name="name" required />
               </div>
               <div class="col-md-6">
                 <label for="email">Email *</label>
-                <input type="email" class="form-control" id="email" />
+                <input type="email" class="form-control" id="email" name="email" required />
               </div>
             </div>
             <div class="form-group">
               <label for="website">Website</label>
-              <input type="url" class="form-control" id="website" />
+              <input type="url" class="form-control" id="website" name="website" />
             </div>
 
             <div class="form-group">
               <label for="message">Message</label>
-              <textarea name="msg" id="message" cols="30" rows="8" class="form-control"></textarea>
+              <textarea name="message" id="message" cols="30" rows="8" class="form-control"></textarea>
             </div>
             <div class="form-group">
               <input type="submit" value="Post Comment" class="btn btn-primary" />
@@ -132,67 +123,19 @@
             <div class="divider"></div>
 
             <ul class="categories">
-              <li><a href="#">LifeStyle</a></li>
-              <li><a href="#">Food</a></li>
-              <li><a href="#">Healthy</a></li>
-              <li><a href="#">Sports</a></li>
-              <li><a href="#">Entertainment</a></li>
+              <li><a href="#">Cleaning Products</a></li>
+              <li><a href="#">Hygiene Solutions</a></li>
+              <li><a href="#">Sanitization</a></li>
+              <li><a href="#">Eco-Friendly Products</a></li>
+              <li><a href="#">Maintenance Tips</a></li>
+              <li><a href="#">Product Reviews</a></li>
+              <li><a href="#">Industrial Cleaning</a></li>
+              <li><a href="#">Commercial Cleaning</a></li>
             </ul>
+
           </div>
 
-          <!-- Widget recent post -->
-          <div class="widget-box">
-            <h4 class="widget-title">Recent Post</h4>
-            <div class="divider"></div>
 
-            <div class="blog-item">
-              <a class="post-thumb" href="">
-                <img src="assets/img/blog/blog-1.jpg" alt="" />
-              </a>
-              <div class="content">
-                <h6 class="post-title">
-                  <a href="#">Even the all-powerful Pointing has no control</a>
-                </h6>
-                <div class="meta">
-                  <a href="#"><span class="mai-calendar"></span> July 12, 2018</a>
-                  <a href="#"><span class="mai-person"></span> Admin</a>
-                  <a href="#"><span class="mai-chatbubbles"></span> 19</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="blog-item">
-              <a class="post-thumb" href="">
-                <img src="assets/img/blog/blog-2.jpg" alt="" />
-              </a>
-              <div class="content">
-                <h6 class="post-title">
-                  <a href="#">Even the all-powerful Pointing has no control</a>
-                </h6>
-                <div class="meta">
-                  <a href="#"><span class="mai-calendar"></span> July 12, 2018</a>
-                  <a href="#"><span class="mai-person"></span> Admin</a>
-                  <a href="#"><span class="mai-chatbubbles"></span> 19</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="blog-item">
-              <a class="post-thumb" href="">
-                <img src="assets/img/blog/blog-3.jpg" alt="" />
-              </a>
-              <div class="content">
-                <h6 class="post-title">
-                  <a href="#">Even the all-powerful Pointing has no control</a>
-                </h6>
-                <div class="meta">
-                  <a href="#"><span class="mai-calendar"></span> July 12, 2018</a>
-                  <a href="#"><span class="mai-person"></span> Admin</a>
-                  <a href="#"><span class="mai-chatbubbles"></span> 19</a>
-                </div>
-              </div>
-            </div>
-          </div>
 
           <!-- Widget Tag Cloud -->
           <div class="widget-box">
@@ -200,18 +143,23 @@
             <div class="divider"></div>
 
             <div class="tag-clouds">
-              <a href="#" class="tag-cloud-link">Projects</a>
-              <a href="#" class="tag-cloud-link">Design</a>
-              <a href="#" class="tag-cloud-link">Travel</a>
-              <a href="#" class="tag-cloud-link">Brand</a>
-              <a href="#" class="tag-cloud-link">Trending</a>
-              <a href="#" class="tag-cloud-link">Knowledge</a>
-              <a href="#" class="tag-cloud-link">Food</a>
+              <a href="#" class="tag-cloud-link">Cleaning Products</a>
+              <a href="#" class="tag-cloud-link">Hygiene Solutions</a>
+              <a href="#" class="tag-cloud-link">Commercial Cleaning</a>
+              <a href="#" class="tag-cloud-link">Industrial Cleaning</a>
+              <a href="#" class="tag-cloud-link">Eco-Friendly</a>
+              <a href="#" class="tag-cloud-link">Sanitization</a>
+              <a href="#" class="tag-cloud-link">Disinfectants</a>
+              <a href="#" class="tag-cloud-link">Product Reviews</a>
+              <a href="#" class="tag-cloud-link">Maintenance Tips</a>
+              <a href="#" class="tag-cloud-link">Client Testimonials</a>
             </div>
           </div>
+
         </div>
       </div>
     </div>
+
   </div>
 </div>
 
